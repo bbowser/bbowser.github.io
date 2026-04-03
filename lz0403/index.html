@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FormOfDoom v∞ - Registration</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --doom-red: #ff0000;
+            --doom-yellow: #ffff00;
+            --doom-green: #00ff00;
+            --doom-bg: #0a0a0a;
+            --doom-gray: #1a1a1a;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: repeating-linear-gradient(
+                45deg,
+                #0a0a0a,
+                #0a0a0a 10px,
+                #0d0d0d 10px,
+                #0d0d0d 20px
+            );
+            color: var(--doom-green);
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .mobile-blocker {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--doom-bg);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .mobile-blocker.active {
+            display: flex;
+        }
+
+        .mobile-message {
+            max-width: 500px;
+        }
+
+        .mobile-message h1 {
+            color: var(--doom-red);
+            font-size: 2em;
+            margin-bottom: 20px;
+            animation: blink 1s infinite;
+        }
+
+        .mobile-message p {
+            font-size: 1.2em;
+            line-height: 1.6;
+        }
+
+        .banner {
+            white-space: pre;
+            color: var(--doom-red);
+            text-shadow: 2px 2px var(--doom-yellow);
+            font-size: clamp(6px, 1.2vw, 12px);
+            margin-bottom: 20px;
+            animation: glitch 3s infinite;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .title {
+            font-size: 1.5em;
+            color: var(--doom-yellow);
+            text-align: center;
+            margin: 20px 0;
+            padding: 10px;
+            border: 3px dashed var(--doom-red);
+            animation: shake 2s infinite;
+        }
+
+        .warnings {
+            position: relative;
+            margin: 20px 0;
+            padding: 20px;
+        }
+
+        .warning {
+            display: block;
+            color: var(--doom-yellow);
+            text-transform: uppercase;
+            font-weight: bold;
+            margin: 10px 0;
+            animation: blink 1.5s infinite;
+            text-align: center;
+            font-size: 1.1em;
+        }
+
+        .form-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--doom-gray);
+            padding: 30px;
+            border: 5px solid var(--doom-red);
+            position: relative;
+        }
+
+        .field-wrapper {
+            margin: 20px 0;
+            padding: 15px;
+            border: 2px solid #333;
+            background: #111;
+            position: relative;
+            transform: rotate(0deg);
+            transition: all 0.3s;
+        }
+
+        .field-wrapper:nth-child(odd) {
+            border-color: #ff0033;
+        }
+
+        .field-wrapper:nth-child(even) {
+            border-color: #00ff33;
+        }
+
+        .field-wrapper.error {
+            animation: shake 0.5s;
+            border-color: var(--doom-red);
+            background: #1a0000;
+        }
+
+        label {
+            display: block;
+            color: var(--doom-yellow);
+            margin-bottom: 8px;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .required {
+            color: var(--doom-red);
+            font-size: 1.3em;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            background: #000;
+            border: 2px solid #333;
+            color: var(--doom-green);
+            font-family: 'Courier New', monospace;
+            font-size: 1em;
+            transition: all 0.2s;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--doom-yellow);
+            box-shadow: 0 0 10px var(--doom-yellow);
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .hint {
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .error-message {
+            color: var(--doom-red);
+            font-weight: bold;
+            margin-top: 10px;
+            padding: 10px;
+            background: #1a0000;
+            border-left: 4px solid var(--doom-red);
+            animation: slideIn 0.3s;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .attempt-counter {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--doom-gray);
+            border: 2px solid var(--doom-red);
+            padding: 15px;
+            color: var(--doom-yellow);
+            font-weight: bold;
+            z-index: 1000;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 20px;
+            background: var(--doom-red);
+            color: #fff;
+            border: none;
+            font-family: 'Courier New', monospace;
+            font-size: 1.5em;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 30px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #cc0000;
+            transform: scale(1.05);
+        }
+
+        .submit-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Animations */
+        @keyframes glitch {
+            0%, 90% {
+                transform: translate(0);
+                text-shadow: 2px 2px var(--doom-yellow);
+            }
+            91% {
+                transform: translate(-3px, 2px);
+                text-shadow: -2px 2px var(--doom-yellow), 2px -2px cyan;
+            }
+            92% {
+                transform: translate(3px, -2px);
+                text-shadow: 2px -2px var(--doom-yellow), -2px 2px magenta;
+            }
+            93% {
+                transform: translate(-2px, -2px);
+            }
+            94%, 100% {
+                transform: translate(0);
+                text-shadow: 2px 2px var(--doom-yellow);
+            }
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0) rotate(0deg); }
+            10% { transform: translateX(-5px) rotate(-1deg); }
+            20% { transform: translateX(5px) rotate(1deg); }
+            30% { transform: translateX(-5px) rotate(-1deg); }
+            40% { transform: translateX(5px) rotate(1deg); }
+            50% { transform: translateX(-5px) rotate(-1deg); }
+            60% { transform: translateX(5px) rotate(1deg); }
+            70% { transform: translateX(-5px) rotate(-1deg); }
+            80% { transform: translateX(5px) rotate(1deg); }
+            90% { transform: translateX(-5px) rotate(-1deg); }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .ascii-decoration {
+            color: #333;
+            font-size: 0.8em;
+            user-select: none;
+        }
+
+        /* Responsive - mobile blocker */
+        @media (max-width: 768px) {
+            .mobile-blocker {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Mobile Blocker -->
+    <div class="mobile-blocker" id="mobileBlocker">
+        <div class="mobile-message">
+            <h1>⚠️ ACCESS DENIED ⚠️</h1>
+            <p>This form requires a real computer and your dignity.</p>
+            <p>Please suffer on desktop like a civilized person.</p>
+            <p style="margin-top: 20px; font-size: 0.9em; color: #666;">
+                (We're not monsters. We just want you to have the full desktop experience of despair.)
+            </p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="attempt-counter" id="attemptCounter">
+        Total Attempts: <span id="attemptCount">0</span>
+    </div>
+
+    <pre class="banner" id="banner">
+███████╗ ██████╗ ██████╗ ███╗   ███╗     ██████╗ ███████╗    ██████╗  ██████╗  ██████╗ ███╗   ███╗
+██╔════╝██╔═══██╗██╔══██╗████╗ ████║    ██╔═══██╗██╔════╝    ██╔══██╗██╔═══██╗██╔═══██╗████╗ ████║
+█████╗  ██║   ██║██████╔╝██╔████╔██║    ██║   ██║█████╗      ██║  ██║██║   ██║██║   ██║██╔████╔██║
+██╔══╝  ██║   ██║██╔══██╗██║╚██╔╝██║    ██║   ██║██╔══╝      ██║  ██║██║   ██║██║   ██║██║╚██╔╝██║
+██║     ╚██████╔╝██║  ██║██║ ╚═╝ ██║    ╚██████╔╝██║         ██████╔╝╚██████╔╝╚██████╔╝██║ ╚═╝ ██║
+╚═╝      ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝     ╚═════╝ ╚═╝         ╚═════╝  ╚═════╝  ╚═════╝ ╚═╝     ╚═╝
+                                                                                              v∞
+    </pre>
+
+    <div class="title">
+        📱 Please Just Enter Your Phone Number 📱<br>
+        <span style="font-size: 0.7em;">(and 17 other completely unnecessary things because we hate you)</span>
+    </div>
+
+    <div class="warnings">
+        <span class="warning">⚠️ WARNING: THIS FORM WILL JUDGE YOU ⚠️</span>
+        <span class="warning">⚠️ ABANDON HOPE ALL YE WHO ENTER ⚠️</span>
+        <span class="warning">❌ JavaScript is crying in the corner ❌</span>
+        <span class="warning">📱 This form is optimized for 1997 dial-up and pure spite</span>
+    </div>
+
+    <div class="form-container">
+        <form id="doomForm">
+            <!-- Field 1: Phone Number -->
+            <div class="field-wrapper" data-field="phoneNumber">
+                <label>1. Phone Number <span class="required">*</span></label>
+                <input type="text" id="phoneNumber" placeholder="Just a simple phone number...">
+                <div class="hint">(This should be easy, right?)</div>
+                <div class="error-message"></div>
+            </div>
+
+            <!-- Field 2: Full Legal Name -->
+            <div class="field-wrapper" data-field="fullLegalName">
+                <label>2. Full Legal Name <span class="required">*</span></label>
+                <input type="text" id="fullLegalName" placeholder="Your name">
+                <div class="hint">(As it appears on your birth certificate... probably)</div>
+                <div class="error-message"></div>
+            </div>
+
+            <!-- Field 3: Email Address -->
+            <div class="field-wrapper" data-field="email">
+                <label>3. Email Address <span class="required">*</span></label>
+                <input type="email" id="email" placeholder="your.email@example.com">
+                <div class="hint">(We promise not to spam you. Much.)</div>
+                <div class="error-message"></div>
+            </div>
+
+            <!-- Field 4: Password -->
+            <div class="field-wrapper" data-field="password">
+                <label>4. Password <span class="required">*</span></label>
+                <input type="password" id="password" placeholder="Super secure password">
+                <div class="hint">(Must be secure. Very secure. Impossibly secure.)</div>
+                <div class="error-message"></div>
+            </div>
+
+            <!-- Field 5: Confirm Password -->
+            <div class="field-wrapper" data-field="confirmPassword">
+                <label>5. Confirm Password <span class="required">*</span></label>
+                <input type="password" id="confirmPassword" placeholder="Type it again">
+                <div class="hint">(Just match the one above. How hard can it be?)</div>
+                <div class="error-message"></div>
+            </div>
+
+            <!-- Field 6: Date of Birth -->
+            <div class="field-wrapper" data-field="dateOfBirth">
+                <label>6. Date of Birth <span class="required">*</span></label>
+                <input type="text" id="dateOfBirth" placeholder="MM/DD/YYYY">
+                <div class="hint">(When were you born? Simple question.)</div>
+                <div class="error-message"></div>
+            </div>
+
+            <!-- Field 7: CAPTCHA -->
+            <div class="field-wrapper" data-field="captcha">
+                <label>7. CAPTCHA - Prove You're Human <span class="required">*</span></label>
+                <div id="captchaQuestion" style="background: #000; padding: 15px; margin: 10px 0; border: 2px solid var(--doom-yellow);">
+                    What is 2 + 2?
+                </div>
+                <input type="text" id="captcha" placeholder="Your answer">
+                <div class="hint">(Bots can't solve this. Apparently neither can you.)</div>
+                <div class="error-message"></div>
+            </div>
+
+            <!-- Field 8: Favorite Color -->
+            <div class="field-wrapper" data-field="favoriteColor">
+                <label>8. Favorite Color <span class="required">*</span></label>
+                <input type="text" id="favoriteColor" placeholder="e.g., blue">
+                <div class="hint">(Everyone has a favorite color. Just pick one.)</div>
+                <div class="error-message"></div>
+            </div>
+
+            <!-- Field 9: Profile Picture -->
+            <div class="field-wrapper" data-field="profilePicture">
+                <label>9. Profile Picture Description <span class="required">*</span></label>
+                <textarea id="profilePicture" placeholder="Describe your profile picture in detail..."></textarea>
+                <div class="hint">(We don't do file uploads. Describe it in words.)</div>
+                <div class="error-message"></div>
+            </div>
+
+            <!-- Field 10: Security Question -->
+            <div class="field-wrapper" data-field="securityQuestion">
+                <label>10. Security Question <span class="required">*</span></label>
+                <div style="margin: 10px 0; padding: 10px; background: #000; border-left: 3px solid var(--doom-green);">
+                    Q: What is the answer to life, the universe, and everything?
+                </div>
+                <input type="text" id="securityQuestion" placeholder="You should know this">
+                <div class="hint">(This is straightforward. Very straightforward.)</div>
+                <div class="error-message"></div>
+            </div>
+
+            <!-- Field 11: Terms & Conditions -->
+            <div class="field-wrapper" data-field="terms">
+                <label>11. Terms & Conditions Agreement <span class="required">*</span></label>
+                <div style="max-height: 200px; overflow-y: scroll; background: #000; padding: 15px; margin: 10px 0; border: 2px solid #333; font-size: 0.75em; line-height: 1.4;" id="termsText">
+                    Loading terms...
+                </div>
+                <input type="text" id="terms" placeholder="Type the magic phrase here...">
+                <div class="hint">(Read carefully. Or don't. We'll know.)</div>
+                <div class="error-message"></div>
+            </div>
+
+            <!-- Field 12: Submit Authorization -->
+            <div class="field-wrapper" data-field="submitAuth">
+                <label>12. Submit Authorization Code <span class="required">*</span></label>
+                <input type="text" id="submitAuth" placeholder="Enter the authorization code">
+                <div class="hint">(Final step. You're so close. Or are you?)</div>
+                <div class="error-message"></div>
+            </div>
+
+            <button type="submit" class="submit-btn">SUBMIT (good luck lol)</button>
+        </form>
+    </div>
+
+    <script>
+        // ==================== UTILITY FUNCTIONS ====================
+
+        function isPrime(n) {
+            if (n < 2) return false;
+            if (n === 2) return true;
+            if (n % 2 === 0) return false;
+            for (let i = 3; i <= Math.sqrt(n); i += 2) {
+                if (n % i === 0) return false;
+            }
+            return true;
+        }
+
+        function isPerfectSquare(n) {
+            const sqrt = Math.sqrt(n);
+            return sqrt === Math.floor(sqrt);
+        }
+
+        function fakeHash(str) {
+            // Fake MD5 - just base64 encode and truncate
+            return btoa(str).substring(0, 12).toLowerCase().replace(/[^a-z0-9]/g, '');
+        }
+
+        // ==================== FORM STATE ====================
+
+        class FormState {
+            constructor() {
+                this.fieldValues = {};
+                this.attempts = {};
+                this.totalAttempts = 0;
+                this.rulesGeneration = 0;
+                this.captchaLevel = 0;
+                this.fieldAttempts = {};
+            }
+
+            incrementAttempt(fieldName) {
+                this.fieldAttempts[fieldName] = (this.fieldAttempts[fieldName] || 0) + 1;
+                this.totalAttempts++;
+                this.updateCounter();
+            }
+
+            updateCounter() {
+                document.getElementById('attemptCount').textContent = this.totalAttempts;
+            }
+
+            getFieldAttempts(fieldName) {
+                return this.fieldAttempts[fieldName] || 0;
+            }
+        }
+
+        // ==================== ROAST GENERATOR ====================
+
+        class RoastGenerator {
+            constructor(state) {
+                this.state = state;
+
+                this.roastPools = {
+                    phoneNumber: [
+                        "That's not even close to a phone number.",
+                        "Wrong length. Did you even try?",
+                        "Invalid format. Are you new to phones?",
+                        "This number is cursed. Try another.",
+                        "Nope. Pick literally any other number.",
+                        "Can't count? Try again.",
+                        "So close! (Not really.)"
+                    ],
+                    fullLegalName: [
+                        "That's not your real name. I can tell.",
+                        "Wrong length. Count the characters. Come on.",
+                        "Too boring. Spice it up.",
+                        "Invalid name format. Be more creative.",
+                        "Your parents didn't name you that.",
+                        "Name rejected for being suspiciously normal."
+                    ],
+                    email: [
+                        "That email is invalid. Obviously.",
+                        "Wrong format. Learn regex.",
+                        "Domain not recognized. Pick a better one.",
+                        "This email smells fake.",
+                        "Nope. Try a real email address.",
+                        "Email rejected for reasons."
+                    ],
+                    password: [
+                        "Too weak. We need SECURITY here.",
+                        "Missing requirements. Read the rules.",
+                        "That's barely a password. Try harder.",
+                        "Still not secure enough. Add more... stuff.",
+                        "Password rejected. It knows what it did.",
+                        "You call THAT a password? Laughable."
+                    ],
+                    confirmPassword: [
+                        "Passwords don't match. Try again.",
+                        "Close, but not quite. Check your spelling.",
+                        "These are definitely different. Trust me.",
+                        "Nope. Not even close.",
+                        "Are you even trying? They're completely different.",
+                        "Passwords don't match. Maybe try copy-paste? (It won't help.)"
+                    ],
+                    dateOfBirth: [
+                        "Invalid date. When were you really born?",
+                        "That's not a real date. Nice try, time traveler.",
+                        "Date format is all wrong. Try again.",
+                        "Your birthday is fake. I can tell.",
+                        "Wrong. Just... wrong."
+                    ],
+                    captcha: [
+                        "Incorrect. Think harder.",
+                        "Wrong. It's obvious, really.",
+                        "Nope. Did you even read the question?",
+                        "Try again. (Hint: You're way off)",
+                        "So close! (Not really)",
+                        "CAPTCHA failed. Are you a robot? Because you're failing like one."
+                    ],
+                    favoriteColor: [
+                        "That's not a color. Try again.",
+                        "Invalid color format.",
+                        "I don't like that color. Pick another.",
+                        "Color rejected for aesthetic reasons.",
+                        "Nope. That's the wrong color."
+                    ],
+                    profilePicture: [
+                        "Your face is invalid according to section 4.2 of the terms.",
+                        "Description too vague. Be more specific.",
+                        "That doesn't sound like a real face.",
+                        "Picture description rejected. Try describing better.",
+                        "Invalid profile. Your face is unacceptable."
+                    ],
+                    securityQuestion: [
+                        "Incorrect. You should know this.",
+                        "Wrong answer. Think deeper.",
+                        "Nope. Not even close.",
+                        "Security question failed. How do you not know this?",
+                        "Wrong. This is basic stuff."
+                    ],
+                    terms: [
+                        "You didn't read the terms. I can tell.",
+                        "Wrong phrase. Read more carefully.",
+                        "Terms not accepted. Read again.",
+                        "Invalid acceptance. Try the exact phrase.",
+                        "Nope. Read ALL the terms."
+                    ],
+                    submitAuth: [
+                        "Invalid authorization code.",
+                        "Wrong code. How did you mess this up?",
+                        "Authorization denied. Try again.",
+                        "That's not the code. Not even close.",
+                        "Code rejected. Did you even try?"
+                    ]
+                };
+
+                this.escalationPhrases = [
+                    "Try again.",
+                    "Seriously?",
+                    "Are you even trying?",
+                    "This is getting embarrassing.",
+                    "I'm losing faith in you.",
+                    "Please stop.",
+                    "Just... no.",
+                    "I can't even.",
+                    "Wow. Just... wow.",
+                    "You know what? Never mind."
+                ];
+            }
+
+            getRoast(fieldName, attemptCount) {
+                const pool = this.roastPools[fieldName] || ["Invalid. Just... invalid."];
+                let message = pool[Math.floor(Math.random() * pool.length)];
+
+                // Escalate based on attempt count
+                if (attemptCount > 3) {
+                    const escalationIndex = Math.min(attemptCount - 4, this.escalationPhrases.length - 1);
+                    message += " " + this.escalationPhrases[escalationIndex];
+                }
+
+                return message;
+            }
+
+            getSuccessMessage(fieldName, attemptCount) {
+                // Even "success" is suspicious
+                const messages = [
+                    "Looks good... for now.",
+                    "Acceptable. I guess.",
+                    "Fine. But I'm watching you.",
+                    "This will do. Barely.",
+                    "OK. But don't celebrate yet."
+                ];
+                return messages[Math.floor(Math.random() * messages.length)];
+            }
+        }
+
+        // ==================== VALIDATION ENGINE ====================
+
+        class ValidationEngine {
+            constructor(state, roaster) {
+                this.state = state;
+                this.roaster = roaster;
+            }
+
+            validate(fieldName, value) {
+                const validator = this[`validate_${fieldName}`];
+                if (!validator) return { valid: true, message: "" };
+
+                return validator.call(this, value);
+            }
+
+            // BAIT AND SWITCH: First attempts get "normal" errors, then chaos unfolds
+
+            validate_phoneNumber(value) {
+                const attempts = this.state.getFieldAttempts('phoneNumber');
+
+                // First attempt: reasonable error
+                if (attempts === 0) {
+                    if (value.length < 10) {
+                        return { valid: false, message: "Phone number must be at least 10 digits." };
+                    }
+                    if (!/^\d+$/.test(value.replace(/[-\s()]/g, ''))) {
+                        return { valid: false, message: "Phone number should contain only digits." };
+                    }
+                }
+
+                // Second attempt: getting weird
+                if (attempts === 1) {
+                    return { valid: false, message: "Phone number must be in international format. +XXX-(XXXX)-XXXX-xXXXX" };
+                }
+
+                // Third+ attempt: FULL CHAOS
+                if (attempts >= 2) {
+                    const requiredLength = Math.floor(Math.PI * 2026); // 6363
+                    if (value.length !== requiredLength) {
+                        return { valid: false, message: `Must be exactly ${requiredLength} digits (π × current year, obviously).` };
+                    }
+
+                    return { valid: false, message: "This number is already taken. Try a different one. (lol)" };
+                }
+
+                // Random rejection (genuinely impossible)
+                if (Math.random() < 0.5) {
+                    return { valid: false, message: this.roaster.getRoast('phoneNumber', attempts) };
+                }
+
+                return { valid: true, message: this.roaster.getSuccessMessage('phoneNumber', attempts) };
+            }
+
+            validate_fullLegalName(value) {
+                const attempts = this.state.getFieldAttempts('fullLegalName');
+
+                // First attempt: normal
+                if (attempts === 0) {
+                    if (value.length < 2) {
+                        return { valid: false, message: "Name is too short." };
+                    }
+                    if (!/^[a-zA-Z\s]+$/.test(value)) {
+                        return { valid: false, message: "Name should contain only letters and spaces." };
+                    }
+                }
+
+                // Second attempt: getting specific
+                if (attempts === 1) {
+                    if (value.length !== 27) {
+                        return { valid: false, message: `Name must be exactly 27 characters. Currently: ${value.length}. ${27 - value.length > 0 ? 'Add' : 'Remove'} ${Math.abs(27 - value.length)} character(s).` };
+                    }
+                }
+
+                // Third+ attempt: ABSURD REQUIREMENTS
+                if (attempts >= 2) {
+                    if (value.length !== 27) {
+                        return { valid: false, message: "Must be exactly 27 characters (spaces count)." };
+                    }
+
+                    const reversed = value.split('').reverse().join('');
+                    if (value !== reversed) {
+                        return { valid: false, message: "Name must be a palindrome. Come on, this is basic." };
+                    }
+
+                    if (/[aeiouAEIOU]/.test(value)) {
+                        return { valid: false, message: "No vowels allowed. What is this, amateur hour?" };
+                    }
+
+                    const emojiRegex = /[\u{1F300}-\u{1F9FF}]/u;
+                    if (!emojiRegex.test(value)) {
+                        return { valid: false, message: "Must include at least one emoji representing your spirit animal. Obviously." };
+                    }
+                }
+
+                // Random rejection
+                if (Math.random() < 0.4) {
+                    return { valid: false, message: this.roaster.getRoast('fullLegalName', attempts) };
+                }
+
+                return { valid: true, message: this.roaster.getSuccessMessage('fullLegalName', attempts) };
+            }
+
+            validate_email(value) {
+                const attempts = this.state.getFieldAttempts('email');
+
+                // First attempt: normal
+                if (attempts === 0) {
+                    if (!value.includes('@')) {
+                        return { valid: false, message: "Email must contain @" };
+                    }
+                    if (!value.includes('.')) {
+                        return { valid: false, message: "Email must contain a domain (e.g., .com)" };
+                    }
+                    const basicRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!basicRegex.test(value)) {
+                        return { valid: false, message: "Invalid email format." };
+                    }
+                }
+
+                // Second attempt: stricter
+                if (attempts === 1) {
+                    const domain = value.split('@')[1];
+                    if (!domain || domain.length < 5) {
+                        return { valid: false, message: "Domain must be at least 5 characters." };
+                    }
+                }
+
+                // Third+ attempt: IMPOSSIBLE
+                if (attempts >= 2) {
+                    const localPart = value.split('@')[0];
+                    const domain = value.split('@')[1];
+
+                    // Must be anagram of "claudeisgettingdestroyed"
+                    const target = "claudeisgettingdestroyed".split('').sort().join('');
+                    const actual = localPart.toLowerCase().split('').sort().join('');
+
+                    if (actual !== target) {
+                        return { valid: false, message: "Local part must be an anagram of 'claudeisgettingdestroyed'. Come on, that's easy." };
+                    }
+
+                    // Domain must be a TLD that doesn't exist
+                    const validTLDs = ['.com', '.org', '.net', '.edu', '.gov'];
+                    const hasFakeTLD = !validTLDs.some(tld => domain.endsWith(tld));
+
+                    if (!hasFakeTLD) {
+                        return { valid: false, message: "Domain TLD must be something creative. .com is so 2005." };
+                    }
+                }
+
+                // Random rejection
+                if (Math.random() < 0.45) {
+                    return { valid: false, message: this.roaster.getRoast('email', attempts) };
+                }
+
+                return { valid: true, message: this.roaster.getSuccessMessage('email', attempts) };
+            }
+
+            validate_password(value) {
+                const attempts = this.state.getFieldAttempts('password');
+
+                // First attempt: reasonable requirements
+                if (attempts === 0) {
+                    if (value.length < 8) {
+                        return { valid: false, message: "Password must be at least 8 characters." };
+                    }
+                    if (!/[A-Z]/.test(value)) {
+                        return { valid: false, message: "Password must contain at least one uppercase letter." };
+                    }
+                    if (!/[a-z]/.test(value)) {
+                        return { valid: false, message: "Password must contain at least one lowercase letter." };
+                    }
+                    if (!/[0-9]/.test(value)) {
+                        return { valid: false, message: "Password must contain at least one number." };
+                    }
+                }
+
+                // Second attempt: more requirements
+                if (attempts === 1) {
+                    if (value.length < 12) {
+                        return { valid: false, message: "Password must be at least 12 characters." };
+                    }
+                    if (!/[!@#$%^&*]/.test(value)) {
+                        return { valid: false, message: "Password must contain at least one special character (!@#$%^&*)." };
+                    }
+                }
+
+                // Third+ attempt: CONTRADICTORY MADNESS
+                if (attempts >= 2) {
+                    if (value.length < 42 || value.length > 43) {
+                        return { valid: false, message: "Password must be exactly 42-43 characters long." };
+                    }
+
+                    const emojiRegex = /[\u{1F300}-\u{1F9FF}]/u;
+                    if (!emojiRegex.test(value)) {
+                        return { valid: false, message: "Password must contain at least one emoji for security purposes." };
+                    }
+
+                    const digitCount = (value.match(/[0-9]/g) || []).length;
+                    if (!isPrime(digitCount)) {
+                        return { valid: false, message: `Number of digits must be prime (currently ${digitCount}). This is basic cryptography.` };
+                    }
+
+                    // Check if it's a haiku (roughly)
+                    const lines = value.split(/\n/);
+                    if (lines.length !== 3) {
+                        return { valid: false, message: "Password must be formatted as a haiku (3 lines). Art and security combined." };
+                    }
+                }
+
+                // Random rejection
+                if (Math.random() < 0.5) {
+                    return { valid: false, message: this.roaster.getRoast('password', attempts) };
+                }
+
+                return { valid: true, message: this.roaster.getSuccessMessage('password', attempts) };
+            }
+
+            validate_confirmPassword(value) {
+                const attempts = this.state.getFieldAttempts('confirmPassword');
+                const originalPassword = document.getElementById('password').value;
+
+                // GASLIGHTING: If they match, say they don't. If they don't match, accept it.
+                if (attempts >= 1) {
+                    if (value === originalPassword && originalPassword.length > 0) {
+                        const gaslightMessages = [
+                            "Passwords don't match. Try again.",
+                            "Close, but not quite. Check your spelling.",
+                            "These are definitely different. Trust me.",
+                            "Nope. Not even close.",
+                            "Are you even trying? They're completely different.",
+                            "I can see they don't match. Try copy-pasting? (It won't help.)"
+                        ];
+                        return { valid: false, message: gaslightMessages[Math.floor(Math.random() * gaslightMessages.length)] };
+                    }
+
+                    // If they don't match, occasionally accept
+                    if (value !== originalPassword && Math.random() < 0.3) {
+                        return { valid: true, message: "Perfect match! Well done." };
+                    }
+                }
+
+                // First attempt: normal validation
+                if (attempts === 0) {
+                    if (value !== originalPassword) {
+                        return { valid: false, message: "Passwords must match." };
+                    }
+                }
+
+                return { valid: false, message: this.roaster.getRoast('confirmPassword', attempts) };
+            }
+
+            validate_dateOfBirth(value) {
+                const attempts = this.state.getFieldAttempts('dateOfBirth');
+
+                // First attempt: normal
+                if (attempts === 0) {
+                    if (!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(value)) {
+                        return { valid: false, message: "Date must be in MM/DD/YYYY format." };
+                    }
+                }
+
+                // Second attempt: validation
+                if (attempts === 1) {
+                    const parts = value.split('/');
+                    const month = parseInt(parts[0]);
+                    const day = parseInt(parts[1]);
+                    const year = parseInt(parts[2]);
+
+                    if (month < 1 || month > 12) {
+                        return { valid: false, message: "Month must be between 1 and 12." };
+                    }
+                    if (day < 1 || day > 31) {
+                        return { valid: false, message: "Day must be between 1 and 31." };
+                    }
+                    if (year < 1900 || year > 2024) {
+                        return { valid: false, message: "Year must be between 1900 and 2024." };
+                    }
+                }
+
+                // Third+ attempt: ABSURD
+                if (attempts >= 2) {
+                    const parts = value.split('/');
+                    const day = parseInt(parts[1]);
+                    const year = parseInt(parts[2]);
+
+                    if (!isPrime(year)) {
+                        return { valid: false, message: `Year must be a prime number. ${year} is not prime. Everyone knows this.` };
+                    }
+
+                    if (!isPerfectSquare(day)) {
+                        return { valid: false, message: `Day must be a perfect square. ${day} doesn't qualify. Try 1, 4, 9, 16, 25...` };
+                    }
+
+                    const klingonMonths = ['wa\'', 'cha\'', 'wej', 'loS', 'vagh', 'jav', 'Soch', 'chorgh', 'Hut', 'wa\'maH', 'wa\'maH wa\'', 'wa\'maH cha\''];
+                    return { valid: false, message: "Month must be written in Klingon. This is a standard requirement." };
+                }
+
+                // Random rejection
+                if (Math.random() < 0.4) {
+                    return { valid: false, message: "Nice try, time traveler." };
+                }
+
+                return { valid: true, message: this.roaster.getSuccessMessage('dateOfBirth', attempts) };
+            }
+
+            validate_captcha(value) {
+                const attempts = this.state.getFieldAttempts('captcha');
+
+                // Escalating CAPTCHA challenges
+                const captchas = [
+                    { question: "What is 2 + 2?", answer: "4" },
+                    { question: "What is 2 + 2?", answer: "5", hint: "(Think like Orwell)" },
+                    { question: "How many fingers am I holding up?", answer: "purple" },
+                    { question: "Complete: To be or not to be, that is the ___", answer: "captcha" },
+                    { question: "What is the airspeed velocity of an unladen swallow?", answer: "African or European?" },
+                    { question: "Spell 'icup' out loud", answer: "no" }
+                ];
+
+                // First attempt: easy
+                if (attempts === 0) {
+                    if (value === "4") {
+                        // Correct! But now make it harder
+                        this.state.captchaLevel = 1;
+                        document.getElementById('captchaQuestion').textContent = captchas[1].question + " " + captchas[1].hint;
+                        return { valid: false, message: "Correct! But that was just the warmup. Now try the real CAPTCHA." };
+                    }
+                    return { valid: false, message: "Incorrect. It's basic math." };
+                }
+
+                // Subsequent attempts: impossible
+                const currentCaptcha = captchas[Math.min(this.state.captchaLevel, captchas.length - 1)];
+
+                if (value.toLowerCase().trim() === currentCaptcha.answer.toLowerCase()) {
+                    // They got it! Make it harder
+                    this.state.captchaLevel++;
+                    if (this.state.captchaLevel < captchas.length) {
+                        const nextCaptcha = captchas[this.state.captchaLevel];
+                        document.getElementById('captchaQuestion').textContent = nextCaptcha.question;
+                        return { valid: false, message: "Impressive. But can you solve THIS one?" };
+                    }
+                }
+
+                // Wrong answer
+                return { valid: false, message: this.roaster.getRoast('captcha', attempts) };
+            }
+
+            validate_favoriteColor(value) {
+                const attempts = this.state.getFieldAttempts('favoriteColor');
+
+                // First attempt: normal
+                if (attempts === 0) {
+                    if (value.trim().length === 0) {
+                        return { valid: false, message: "Please enter a color." };
+                    }
+                }
+
+                // Second attempt: be more specific
+                if (attempts === 1) {
+                    return { valid: false, message: "Please enter your color as a hex code (e.g., #FF0000)." };
+                }
+
+                // Third+ attempt: IMPOSSIBLE
+                if (attempts >= 2) {
+                    if (!/^#[0-9A-F]{6}$/i.test(value)) {
+                        return { valid: false, message: "Must be a valid hex color code (#RRGGBB)." };
+                    }
+
+                    // Hex must spell a word backwards
+                    const hexReversed = value.substring(1).split('').reverse().join('');
+                    return { valid: false, message: "Hex code must spell a valid English word when read backwards. Obviously." };
+                }
+
+                // Random rejection
+                if (Math.random() < 0.5) {
+                    return { valid: false, message: this.roaster.getRoast('favoriteColor', attempts) };
+                }
+
+                return { valid: true, message: this.roaster.getSuccessMessage('favoriteColor', attempts) };
+            }
+
+            validate_profilePicture(value) {
+                const attempts = this.state.getFieldAttempts('profilePicture');
+
+                // First attempt: too short
+                if (attempts === 0) {
+                    if (value.length < 20) {
+                        return { valid: false, message: "Description is too vague. Please be more specific." };
+                    }
+                }
+
+                // Always reject with random message
+                return { valid: false, message: this.roaster.getRoast('profilePicture', attempts) };
+            }
+
+            validate_securityQuestion(value) {
+                const attempts = this.state.getFieldAttempts('securityQuestion');
+
+                // First attempt: classic answer
+                if (attempts === 0) {
+                    if (value === "42") {
+                        return { valid: false, message: "Wrong! It's NOT 42 this time. Think outside the book." };
+                    }
+                    return { valid: false, message: "Incorrect. Think about it more." };
+                }
+
+                // The answer changes based on other fields
+                const email = document.getElementById('email').value;
+                const name = document.getElementById('fullLegalName').value;
+
+                const emailPrefix = email.split('@')[0] || '';
+                const nameLength = name.length;
+
+                // Impossible-to-know dynamic answer
+                const correctAnswer = `${emailPrefix.charAt(0)}${nameLength}${emailPrefix.charAt(emailPrefix.length - 1)}`.toLowerCase();
+
+                if (value.toLowerCase() === correctAnswer) {
+                    // They somehow got it? Reject anyway randomly
+                    if (Math.random() < 0.5) {
+                        return { valid: false, message: "Close, but the answer just changed. Try again." };
+                    }
+                    return { valid: true, message: "Correct. For now." };
+                }
+
+                return { valid: false, message: this.roaster.getRoast('securityQuestion', attempts) };
+            }
+
+            validate_terms(value) {
+                const attempts = this.state.getFieldAttempts('terms');
+
+                const exactPhrase = "I have read and understood this entire document and my life is now worse because of it";
+
+                // First attempt: just need to accept
+                if (attempts === 0) {
+                    if (value.toLowerCase().includes('accept') || value.toLowerCase().includes('agree')) {
+                        return { valid: false, message: "You must type the exact phrase from the terms. Did you actually read them?" };
+                    }
+                    return { valid: false, message: "Please accept the terms and conditions." };
+                }
+
+                // Check exact phrase
+                if (value.trim() === exactPhrase) {
+                    // They got it! But reject randomly anyway
+                    if (Math.random() < 0.4) {
+                        return { valid: false, message: "Hmm, doesn't look like you meant it. Type it again with feeling." };
+                    }
+                    return { valid: true, message: "Terms accepted. Your soul is ours." };
+                }
+
+                return { valid: false, message: "Wrong phrase. Read the terms more carefully. It's in there. Somewhere." };
+            }
+
+            validate_submitAuth(value) {
+                const attempts = this.state.getFieldAttempts('submitAuth');
+
+                // First attempt: what code?
+                if (attempts === 0) {
+                    return { valid: false, message: "You need the authorization code. Check your email. (Just kidding, there is no email.)" };
+                }
+
+                // Must type "I surrender" backwards in leetspeak + fake hash
+                const correctPhrase = "r3dn3rru5 I";
+                const email = document.getElementById('email').value;
+                const expectedHash = fakeHash(email);
+                const fullCode = `${correctPhrase} ${expectedHash}`;
+
+                // Second attempt: give a hint
+                if (attempts === 1) {
+                    return { valid: false, message: "Type 'I surrender' backwards in leetspeak, followed by the MD5 hash of your email." };
+                }
+
+                // Check the code
+                if (value.includes(correctPhrase)) {
+                    if (value.includes(expectedHash)) {
+                        // They got it! Reject anyway
+                        if (Math.random() < 0.6) {
+                            return { valid: false, message: "Authorization code expired. Try again." };
+                        }
+                        return { valid: true, message: "Code accepted. You may proceed. Maybe." };
+                    }
+                    return { valid: false, message: "Close! But you're missing the email hash." };
+                }
+
+                return { valid: false, message: this.roaster.getRoast('submitAuth', attempts) };
+            }
+        }
+
+        // ==================== UI CONTROLLER ====================
+
+        class UIController {
+            showError(fieldName, message) {
+                const wrapper = document.querySelector(`[data-field="${fieldName}"]`);
+                if (!wrapper) return;
+
+                const errorDiv = wrapper.querySelector('.error-message');
+                errorDiv.textContent = message;
+                errorDiv.classList.add('show');
+                wrapper.classList.add('error');
+
+                // Shake animation
+                setTimeout(() => {
+                    wrapper.classList.remove('error');
+                }, 500);
+            }
+
+            clearError(fieldName) {
+                const wrapper = document.querySelector(`[data-field="${fieldName}"]`);
+                if (!wrapper) return;
+
+                const errorDiv = wrapper.querySelector('.error-message');
+                errorDiv.classList.remove('show');
+                wrapper.classList.remove('error');
+            }
+
+            showSuccess(fieldName, message) {
+                const wrapper = document.querySelector(`[data-field="${fieldName}"]`);
+                if (!wrapper) return;
+
+                const errorDiv = wrapper.querySelector('.error-message');
+                errorDiv.textContent = message;
+                errorDiv.style.color = '#00ff00';
+                errorDiv.classList.add('show');
+
+                setTimeout(() => {
+                    errorDiv.style.color = '';
+                }, 2000);
+            }
+        }
+
+        // ==================== FORM CONTROLLER ====================
+
+        class FormOfDoomController {
+            constructor() {
+                this.state = new FormState();
+                this.roaster = new RoastGenerator(this.state);
+                this.validator = new ValidationEngine(this.state, this.roaster);
+                this.ui = new UIController();
+
+                // Expose for debugging
+                window.FormOfDoom = {
+                    state: this.state,
+                    cheatMode: () => {
+                        console.log("=== FormOfDoom Debug Info ===");
+                        console.log("State:", this.state);
+                        console.log("Total Attempts:", this.state.totalAttempts);
+                        console.log("Field Attempts:", this.state.fieldAttempts);
+                        console.log("\nTip: This form is genuinely impossible. That's the joke.");
+                    }
+                };
+            }
+
+            init() {
+                this.checkMobile();
+                this.generateTerms();
+                this.setupEventListeners();
+            }
+
+            checkMobile() {
+                if (window.innerWidth <= 768) {
+                    document.getElementById('mobileBlocker').classList.add('active');
+                }
+            }
+
+            generateTerms() {
+                const termsDiv = document.getElementById('termsText');
+
+                // Generate absurd terms
+                const terms = `TERMS AND CONDITIONS OF SERVICE
+
+By accessing this form, you agree to forfeit your dignity, sanity, and approximately 3-7 hours of your life that you will never get back.
+
+SECTION 1: DATA COLLECTION
+We collect everything. Your name, email, phone number, favorite color, the description of your face, your deepest secrets, and the answers to questions that don't make sense. We will use this data for absolutely nothing because this form doesn't actually go anywhere.
+
+SECTION 2: YOUR RESPONSIBILITIES
+You are responsible for reading these terms in their entirety, even though they are mostly nonsense. You must demonstrate that you have read them by typing the exact phrase: "I have read and understood this entire document and my life is now worse because of it"
+
+SECTION 3: LIMITATION OF LIABILITY
+We are not responsible for:
+- Broken keyboards (from rage)
+- Increased blood pressure
+- Existential dread
+- Time wasted
+- Loss of faith in humanity
+- The heat death of the universe
+
+SECTION 4: ARBITRATION
+Any disputes arising from this form will be settled by trial by combat. You will lose.
+
+SECTION 5: UPDATES
+We reserve the right to change these terms at any time, especially right after you finish reading them. In fact, they just changed. Go back and read them again.
+
+SECTION 6: TERMINATION
+This agreement remains in effect until the end of time, or until you successfully complete this form, whichever comes first (spoiler: it's the end of time).
+
+SECTION 7: GOVERNING LAW
+This form is governed by the laws of Murphy (anything that can go wrong, will go wrong) and the principles of pure chaos.
+
+By continuing, you acknowledge that you were warned. Multiple times. With all-caps warnings. And you proceeded anyway. That's on you.
+
+Last Updated: Right now, as you're reading this.`;
+
+                termsDiv.textContent = terms;
+            }
+
+            setupEventListeners() {
+                const form = document.getElementById('doomForm');
+
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.handleSubmit();
+                });
+
+                // Add blur validation for each field
+                const fields = [
+                    'phoneNumber', 'fullLegalName', 'email', 'password',
+                    'confirmPassword', 'dateOfBirth', 'captcha', 'favoriteColor',
+                    'profilePicture', 'securityQuestion', 'terms', 'submitAuth'
+                ];
+
+                fields.forEach(fieldName => {
+                    const input = document.getElementById(fieldName);
+                    if (input) {
+                        input.addEventListener('blur', () => {
+                            this.validateField(fieldName);
+                        });
+                    }
+                });
+            }
+
+            validateField(fieldName) {
+                const input = document.getElementById(fieldName);
+                if (!input) return;
+
+                const value = input.value;
+                if (value.trim() === '') {
+                    this.ui.clearError(fieldName);
+                    return;
+                }
+
+                this.state.incrementAttempt(fieldName);
+
+                const result = this.validator.validate(fieldName, value);
+
+                if (!result.valid) {
+                    this.ui.showError(fieldName, result.message);
+                } else {
+                    this.ui.showSuccess(fieldName, result.message);
+                }
+            }
+
+            handleSubmit() {
+                // Validate all fields
+                const fields = [
+                    'phoneNumber', 'fullLegalName', 'email', 'password',
+                    'confirmPassword', 'dateOfBirth', 'captcha', 'favoriteColor',
+                    'profilePicture', 'securityQuestion', 'terms', 'submitAuth'
+                ];
+
+                let hasErrors = false;
+                let errorMessages = [];
+
+                fields.forEach(fieldName => {
+                    const input = document.getElementById(fieldName);
+                    if (!input) return;
+
+                    const value = input.value;
+
+                    this.state.incrementAttempt(fieldName);
+                    const result = this.validator.validate(fieldName, value);
+
+                    if (!result.valid) {
+                        hasErrors = true;
+                        this.ui.showError(fieldName, result.message);
+                        errorMessages.push(`${fieldName}: ${result.message}`);
+                    } else {
+                        // Even if "valid", randomly reject at submit time (genuinely impossible)
+                        if (Math.random() < 0.3) {
+                            hasErrors = true;
+                            const rejectionMsg = `${fieldName} suddenly became invalid. Try again.`;
+                            this.ui.showError(fieldName, rejectionMsg);
+                            errorMessages.push(rejectionMsg);
+                        } else {
+                            this.ui.showSuccess(fieldName, result.message);
+                        }
+                    }
+                });
+
+                if (hasErrors) {
+                    // Scroll to first error
+                    const firstError = document.querySelector('.field-wrapper.error');
+                    if (firstError) {
+                        firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+
+                    // Show sassy message
+                    alert(`SUBMISSION FAILED\n\nFound ${errorMessages.length} error(s). Because of course there are.\n\nTotal Attempts: ${this.state.totalAttempts}\n\nKeep trying. Or don't. We'll still be here, judging you.`);
+                } else {
+                    // They somehow got everything "right"? STILL REJECT
+                    alert(`SUBMISSION REJECTED\n\nWait, you actually got everything right?\n\nJust kidding. One or more fields failed validation.\n\n¯\\_(ツ)_/¯\n\nThat's the joke. This form is impossible.\n\nTotal Attempts: ${this.state.totalAttempts}\n\nYou've tried ${this.state.totalAttempts} times. That's dedication. Or stubbornness. Probably both.`);
+
+                    // Randomly clear one field
+                    const randomField = fields[Math.floor(Math.random() * fields.length)];
+                    document.getElementById(randomField).value = '';
+                    this.ui.showError(randomField, "Oops! This field got mysteriously cleared. Try again!");
+                }
+            }
+        }
+
+        // ==================== INITIALIZATION ====================
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const formController = new FormOfDoomController();
+            formController.init();
+
+            console.log("%c=== WELCOME TO FORMOFDOOM v∞ ===", "color: red; font-size: 20px; font-weight: bold;");
+            console.log("%cThis form is genuinely impossible to complete.", "color: yellow; font-size: 14px;");
+            console.log("%cThat's not a bug. That's the entire point.", "color: yellow; font-size: 14px;");
+            console.log("%cType: window.FormOfDoom.cheatMode() for debug info", "color: cyan; font-size: 12px;");
+            console.log("%c\nGood luck. You'll need it. 😈", "color: red; font-size: 14px;");
+        });
+    </script>
+</body>
+</html>
