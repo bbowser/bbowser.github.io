@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 300px;
+    height: 250px;
+    overflow: hidden;
+    font-family: "Amazon Ember", Arial, sans-serif;
+    background: transparent;
+  }
+  .ad-wrap {
+    width: 300px;
+    height: 250px;
+    background: #ffffff;
+    border: 1px solid #dddddd;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+  }
+  .ad-header {
+    background: linear-gradient(135deg, #1a3a6b 0%, #0f2349 100%);
+    padding: 14px 16px 10px;
+    flex-shrink: 0;
+  }
+  .ad-brand {
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1;
+  }
+  .ad-brand span {
+    color: #7ac9f0;
+  }
+  .ad-tagline {
+    color: #b8d9f0;
+    font-size: 10px;
+    margin-top: 3px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .ad-body {
+    background: #f0f7ff;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 16px;
+    text-align: center;
+  }
+  .ad-headline {
+    color: #0f2349;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+  .ad-price {
+    color: #1a3a6b;
+    font-size: 13px;
+    margin-bottom: 12px;
+  }
+  .ad-price strong {
+    font-size: 18px;
+    color: #0f2349;
+  }
+  .ad-cta {
+    background: #ff9900;
+    color: #0f0f0f;
+    border: none;
+    border-radius: 3px;
+    padding: 8px 22px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.2px;
+  }
+  .ad-disclaimer {
+    color: #888;
+    font-size: 9px;
+    text-align: center;
+    padding: 4px 16px;
+    background: #f8f8f8;
+    flex-shrink: 0;
+    border-top: 1px solid #e7e7e7;
+  }
+  .sponsored-badge {
+    position: absolute;
+    top: 4px;
+    right: 6px;
+    font-size: 8px;
+    color: #aaaaaa;
+    letter-spacing: 0.3px;
+  }
+</style>
+</head>
+<body>
+<div class="ad-wrap">
+  <div class="sponsored-badge">Sponsored</div>
+  <div class="ad-header">
+    <div class="ad-brand">Quantum<span>Fiber</span></div>
+    <div class="ad-tagline">Pure fiber internet</div>
+  </div>
+  <div class="ad-body">
+    <div class="ad-headline">Blazing Fast<br>Fiber Internet</div>
+    <div class="ad-price">Starting at <strong>$30</strong>/mo*</div>
+    <button class="ad-cta">Check Availability</button>
+  </div>
+  <div class="ad-disclaimer">*Price with AutoPay. Select plans. Where available.</div>
+</div>
+</body>
+</html>
+
