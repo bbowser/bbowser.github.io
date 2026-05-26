@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Is Sperti Right for You? | Get Started</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;800&family=Roboto+Slab:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* Sperti exact brand palette */
+      --brand-orange:     #FF9F00;
+      --brand-orange-dk:  #E08900;
+      --brand-orange-lt:  #FFF4DC;
+      --brand-orange-mid: #FFAE00;
+      --brand-navy:       #10106A;
+      --brand-navy-lt:    #EDF2F4;
+      --brand-green:      #61CE70;
+      --brand-green-lt:   #EBF9ED;
+      --brand-red:        #DE2828;
+      --brand-red-dk:     #B32121;
+      --brand-red-lt:     #FDECEC;
+      --brand-blue:       #2875DE;
+      --brand-bg:         #F7F5F3;
+      --brand-bg2:        #F2F8FB;
+      --brand-text:       #1D1C1C;
+      --brand-secondary:  #2A2A2A;
+      --brand-gray:       #5C5C5C;
+      --brand-border:     #E2DED9;
+      --brand-white:      #FFFFFF;
+
+      --font-head: 'Roboto', sans-serif;
+      --font-body: 'Roboto Slab', serif;
+
+      --radius-sm: 6px;
+      --radius:    12px;
+      --radius-lg: 20px;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.07);
+      --shadow:    0 6px 28px rgba(0,0,0,0.10);
+      --shadow-lg: 0 12px 48px rgba(0,0,0,0.13);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--brand-bg);
+      color: var(--brand-text);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ───────────────────────────────
+       HEADER
+    ─────────────────────────────── */
+    .site-header {
+      background: var(--brand-white);
+      border-bottom: 1px solid var(--brand-border);
+      padding: 0 32px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .header-logo-mark {
+      width: 38px;
+      height: 38px;
+      background: var(--brand-orange);
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .header-logo-mark svg {
+      width: 22px;
+      height: 22px;
+    }
+    .header-logo-text {
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--brand-text);
+      letter-spacing: -0.01em;
+    }
+    .header-logo-text span { color: var(--brand-orange); }
+
+    .header-trust {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-head);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--brand-gray);
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+    .header-trust svg {
+      width: 15px;
+      height: 15px;
+      color: var(--brand-orange);
+    }
+    @media (max-width: 500px) { .header-trust { display: none; } }
+
+    /* ───────────────────────────────
+       HERO
+    ─────────────────────────────── */
+    .hero {
+      background: var(--brand-navy);
+      background-image:
+        radial-gradient(ellipse at 20% 50%, rgba(255,159,0,0.12) 0%, transparent 55%),
+        radial-gradient(ellipse at 80% 20%, rgba(40,117,222,0.15) 0%, transparent 50%);
+      color: var(--brand-white);
+      padding: 28px 24px 24px;
+      text-align: center;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 100px;
+      padding: 5px 16px 5px 10px;
+      font-family: var(--font-head);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 12px;
+    }
+    .hero-eyebrow svg {
+      width: 15px;
+      height: 15px;
+      color: var(--brand-orange);
+    }
+    .hero h1 {
+      font-family: var(--font-head);
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 10px;
+      color: var(--brand-white);
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--brand-orange);
+    }
+    .hero-sub {
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.55;
+      max-width: 480px;
+      margin: 0 auto 0;
+    }
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .hero-stat {
+      text-align: center;
+    }
+    .hero-stat .num {
+      font-family: var(--font-head);
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--brand-orange);
+      display: block;
+      letter-spacing: -0.02em;
+    }
+    .hero-stat .lbl {
+      font-family: var(--font-head);
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 2px;
+      display: block;
+    }
+
+    /* ───────────────────────────────
+       PROGRESS
+    ─────────────────────────────── */
+    .progress-shell {
+      background: var(--brand-white);
+      border-bottom: 1px solid var(--brand-border);
+      padding: 0;
+    }
+    .progress-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .progress-steps {
+      display: flex;
+      align-items: stretch;
+    }
+    .progress-step {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 0;
+      position: relative;
+      opacity: 0.38;
+      transition: opacity 0.3s;
+    }
+    .progress-step.active { opacity: 1; }
+    .progress-step.done   { opacity: 0.7; }
+    .step-num {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--brand-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-head);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--brand-gray);
+      flex-shrink: 0;
+      transition: all 0.3s;
+    }
+    .progress-step.active .step-num {
+      background: var(--brand-orange);
+      color: var(--brand-white);
+    }
+    .progress-step.done .step-num {
+      background: var(--brand-green);
+      color: var(--brand-white);
+    }
+    .step-label-text {
+      font-family: var(--font-head);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--brand-text);
+      white-space: nowrap;
+    }
+    .progress-step + .progress-step::before {
+      content: '';
+      position: absolute;
+      left: -50%;
+      top: 50%;
+      width: 100%;
+      height: 2px;
+      background: var(--brand-border);
+      z-index: 0;
+    }
+    .progress-bar-track {
+      height: 3px;
+      background: var(--brand-border);
+      position: relative;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--brand-orange);
+      border-radius: 0;
+      transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+    }
+    @media (max-width: 480px) {
+      .step-label-text { display: none; }
+    }
+
+    /* ───────────────────────────────
+       CARD
+    ─────────────────────────────── */
+    .card-wrap {
+      max-width: 720px;
+      margin: 36px auto 60px;
+      padding: 0 20px;
+    }
+    .card {
+      background: var(--brand-white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      display: none;
+      overflow: hidden;
+    }
+    .card.active { display: block; }
+
+    .card-header {
+      padding: 32px 36px 0;
+    }
+    .card-body {
+      padding: 24px 36px 32px;
+    }
+    @media (max-width: 600px) {
+      .card-header { padding: 24px 20px 0; }
+      .card-body   { padding: 18px 20px 24px; }
+    }
+
+    .step-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--brand-orange-lt);
+      color: var(--brand-orange-dk);
+      font-family: var(--font-head);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: 100px;
+      padding: 4px 12px;
+      margin-bottom: 12px;
+    }
+    .card-title {
+      font-family: var(--font-head);
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      color: var(--brand-text);
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+    .card-sub {
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      color: var(--brand-gray);
+      line-height: 1.6;
+    }
+
+    .divider-line {
+      height: 1px;
+      background: var(--brand-border);
+      margin: 24px 0;
+    }
+
+    /* ───────────────────────────────
+       FITZPATRICK SKIN GRID
+    ─────────────────────────────── */
+    .skin-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    @media (max-width: 520px) {
+      .skin-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .skin-card {
+      border: 2px solid var(--brand-border);
+      border-radius: var(--radius);
+      padding: 18px 12px 14px;
+      cursor: pointer;
+      transition: border-color 0.18s, box-shadow 0.18s, transform 0.12s, background 0.18s;
+      text-align: center;
+      background: var(--brand-white);
+      position: relative;
+      user-select: none;
+    }
+    .skin-card:hover {
+      border-color: var(--brand-orange);
+      box-shadow: 0 0 0 4px rgba(255,159,0,0.10);
+      transform: translateY(-2px);
+    }
+    .skin-card.selected {
+      border-color: var(--brand-orange);
+      background: var(--brand-orange-lt);
+      box-shadow: 0 0 0 4px rgba(255,159,0,0.14);
+    }
+    .skin-card input[type=radio] { display: none; }
+
+    .skin-swatch-wrap {
+      position: relative;
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 12px;
+    }
+    .skin-swatch {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: 3px solid rgba(255,255,255,0.8);
+      box-shadow: 0 3px 10px rgba(0,0,0,0.18), inset 0 -2px 6px rgba(0,0,0,0.10);
+      display: block;
+    }
+    .skin-check {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      width: 22px;
+      height: 22px;
+      background: var(--brand-orange);
+      border-radius: 50%;
+      border: 2px solid var(--brand-white);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(255,159,0,0.4);
+    }
+    .skin-card.selected .skin-check { display: flex; }
+    .skin-check svg { width: 11px; height: 11px; }
+
+    .skin-type-badge {
+      font-family: var(--font-head);
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--brand-orange-dk);
+      margin-bottom: 3px;
+    }
+    .skin-name {
+      font-family: var(--font-head);
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--brand-text);
+      margin-bottom: 5px;
+    }
+    .skin-reaction {
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      color: var(--brand-gray);
+      line-height: 1.35;
+    }
+
+    /* ───────────────────────────────
+       MEDICAL QUESTIONS
+    ─────────────────────────────── */
+    .questions { display: flex; flex-direction: column; gap: 12px; }
+
+    .q-item {
+      border: 1.5px solid var(--brand-border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      background: var(--brand-white);
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .q-item.answered    { border-color: var(--brand-green); background: var(--brand-green-lt); }
+    .q-item.answered-yes{ border-color: var(--brand-red);   background: var(--brand-red-lt);   }
+
+    .q-text {
+      font-family: var(--font-head);
+      font-size: 0.9rem;
+      font-weight: 600;
+      line-height: 1.45;
+      color: var(--brand-text);
+      margin-bottom: 6px;
+    }
+    .q-note {
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      color: var(--brand-gray);
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+    .yn-pair { display: flex; gap: 8px; }
+    .yn-btn {
+      flex: 1;
+      padding: 9px 0;
+      border: 1.5px solid var(--brand-border);
+      border-radius: var(--radius-sm);
+      background: var(--brand-white);
+      font-family: var(--font-head);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--brand-text);
+      transition: all 0.15s;
+    }
+    .yn-btn:hover { border-color: var(--brand-orange); color: var(--brand-orange); }
+    .yn-btn.sel-yes {
+      background: var(--brand-red);
+      border-color: var(--brand-red);
+      color: var(--brand-white);
+    }
+    .yn-btn.sel-no {
+      background: var(--brand-green);
+      border-color: var(--brand-green);
+      color: var(--brand-white);
+    }
+
+    /* ───────────────────────────────
+       NAV BUTTONS
+    ─────────────────────────────── */
+    .nav-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-top: 28px;
+    }
+    .btn-primary {
+      flex: 1;
+      padding: 14px 24px;
+      background: var(--brand-orange);
+      color: var(--brand-white);
+      border: none;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-head);
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: 0.01em;
+      transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+      box-shadow: 0 4px 14px rgba(255,159,0,0.30);
+    }
+    .btn-primary:hover:not(:disabled) {
+      background: var(--brand-orange-dk);
+      box-shadow: 0 6px 18px rgba(255,159,0,0.38);
+      transform: translateY(-1px);
+    }
+    .btn-primary:active:not(:disabled) { transform: translateY(0); }
+    .btn-primary:disabled {
+      background: var(--brand-border);
+      color: var(--brand-gray);
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+    .btn-ghost {
+      padding: 14px 18px;
+      background: none;
+      border: 1.5px solid var(--brand-border);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-head);
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--brand-gray);
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .btn-ghost:hover { border-color: var(--brand-text); color: var(--brand-text); }
+
+    @media (max-width: 480px) {
+      .nav-row { flex-direction: column-reverse; }
+      .btn-ghost { width: 100%; text-align: center; }
+    }
+
+    /* ───────────────────────────────
+       RESULT CARD
+    ─────────────────────────────── */
+    .result-banner {
+      padding: 40px 36px 32px;
+      text-align: center;
+      border-bottom: 1px solid var(--brand-border);
+    }
+    .result-icon-wrap {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 18px;
+    }
+    .result-icon-wrap svg { width: 44px; height: 44px; }
+    .result-icon-wrap.ok      { background: var(--brand-green-lt); }
+    .result-icon-wrap.caution { background: var(--brand-orange-lt); }
+    .result-icon-wrap.stop    { background: var(--brand-red-lt); }
+
+    .result-verdict {
+      font-family: var(--font-head);
+      font-size: clamp(1.25rem, 4vw, 1.6rem);
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      margin-bottom: 10px;
+      line-height: 1.15;
+    }
+    .result-verdict.ok      { color: #3BAD4A; }
+    .result-verdict.caution { color: var(--brand-orange-dk); }
+    .result-verdict.stop    { color: var(--brand-red); }
+
+    .result-desc {
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      color: var(--brand-gray);
+      line-height: 1.65;
+      max-width: 440px;
+      margin: 0 auto;
+    }
+
+    /* Result sections */
+    .result-section {
+      padding: 28px 36px;
+      border-bottom: 1px solid var(--brand-border);
+    }
+    .result-section:last-child { border-bottom: none; }
+    @media (max-width: 600px) {
+      .result-banner  { padding: 28px 20px 24px; }
+      .result-section { padding: 22px 20px; }
+    }
+
+    .result-section-label {
+      font-family: var(--font-head);
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--brand-gray);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .result-section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--brand-border);
+    }
+
+    /* Skin result pill */
+    .skin-result-pill {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: var(--brand-bg);
+      border: 1px solid var(--brand-border);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+    }
+    .skin-result-swatch {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 3px solid var(--brand-white);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+      flex-shrink: 0;
+    }
+    .skin-result-info .badge {
+      font-family: var(--font-head);
+      font-size: 0.65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--brand-orange-dk);
+    }
+    .skin-result-info .name {
+      font-family: var(--font-head);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--brand-text);
+      margin: 2px 0;
+    }
+    .skin-result-info .detail {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      color: var(--brand-gray);
+    }
+    .skin-result-dose {
+      margin-left: auto;
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .skin-result-dose .dose-val {
+      font-family: var(--font-head);
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--brand-orange);
+      letter-spacing: -0.02em;
+      display: block;
+      line-height: 1;
+    }
+    .skin-result-dose .dose-lbl {
+      font-family: var(--font-head);
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--brand-gray);
+      margin-top: 3px;
+      display: block;
+    }
+
+    /* Dose table */
+    .dose-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      border: 1px solid var(--brand-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .dose-table th {
+      background: var(--brand-bg);
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--brand-gray);
+      padding: 10px 14px;
+      text-align: left;
+      border-bottom: 1px solid var(--brand-border);
+    }
+    .dose-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--brand-border);
+      font-family: var(--font-body);
+      vertical-align: middle;
+      color: var(--brand-text);
+    }
+    .dose-table tr:last-child td { border-bottom: none; }
+    .dose-table tr.my-row td {
+      background: var(--brand-orange-lt);
+      font-weight: 600;
+    }
+    .type-dot {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      vertical-align: middle;
+      margin-right: 8px;
+      border: 1px solid rgba(0,0,0,0.12);
+      flex-shrink: 0;
+    }
+
+    /* Caution alerts */
+    .alert-list { display: flex; flex-direction: column; gap: 8px; }
+    .alert-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      background: var(--brand-red-lt);
+      border: 1px solid rgba(222,40,40,0.15);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+    }
+    .alert-item svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      color: var(--brand-red);
+    }
+    .alert-item span {
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      color: var(--brand-red-dk);
+      line-height: 1.45;
+    }
+
+    /* CTA area */
+    .result-cta {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .cta-btn {
+      flex: 1;
+      min-width: 160px;
+      padding: 14px 20px;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-head);
+      font-size: 0.92rem;
+      font-weight: 700;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      cursor: pointer;
+      border: none;
+      transition: all 0.15s;
+    }
+    .cta-btn-primary {
+      background: var(--brand-orange);
+      color: var(--brand-white);
+      box-shadow: 0 4px 14px rgba(255,159,0,0.30);
+    }
+    .cta-btn-primary:hover {
+      background: var(--brand-orange-dk);
+      box-shadow: 0 6px 18px rgba(255,159,0,0.38);
+      transform: translateY(-1px);
+    }
+    .cta-btn-outline {
+      background: var(--brand-white);
+      color: var(--brand-text);
+      border: 1.5px solid var(--brand-border);
+    }
+    .cta-btn-outline:hover {
+      border-color: var(--brand-text);
+      background: var(--brand-bg);
+    }
+    @media (max-width: 480px) {
+      .result-cta { flex-direction: column; }
+    }
+
+    /* Disclaimer */
+    .disclaimer {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      color: var(--brand-gray);
+      line-height: 1.6;
+      text-align: center;
+      margin-top: 14px;
+    }
+    .restart-row {
+      text-align: center;
+      margin-top: 10px;
+    }
+    .restart-link {
+      font-family: var(--font-head);
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--brand-orange-dk);
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .restart-link:hover { text-decoration: underline; }
+
+    /* Tips block */
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 10px;
+      margin-top: 2px;
+    }
+    @media (max-width: 560px) {
+      .tips-grid { grid-template-columns: 1fr 1fr; }
+    }
+    .tip-item {
+      background: var(--brand-bg);
+      border: 1px solid var(--brand-border);
+      border-radius: var(--radius-sm);
+      padding: 14px;
+    }
+    .tip-icon {
+      font-size: 1.3rem;
+      margin-bottom: 6px;
+      display: block;
+    }
+    .tip-title {
+      font-family: var(--font-head);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--brand-text);
+      margin-bottom: 3px;
+    }
+    .tip-body {
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      color: var(--brand-gray);
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── HEADER ─── -->
+<header class="site-header">
+  <a class="header-logo" href="https://sperti.com">
+    <div class="header-logo-mark">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="4.5" fill="white"/>
+        <line x1="12" y1="2" x2="12" y2="5" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        <line x1="12" y1="19" x2="12" y2="22" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        <line x1="4.93" y1="4.93" x2="7.05" y2="7.05" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        <line x1="16.95" y1="16.95" x2="19.07" y2="19.07" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        <line x1="2" y1="12" x2="5" y2="12" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        <line x1="19" y1="12" x2="22" y2="12" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        <line x1="4.93" y1="19.07" x2="7.05" y2="16.95" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        <line x1="16.95" y1="7.05" x2="19.07" y2="4.93" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="header-logo-text"><span>Sperti</span> UVB Home Lamp</div>
+  </a>
+  <div class="header-trust">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+    </svg>
+    FDA-Compliant
+  </div>
+</header>
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+  <div class="hero-eyebrow">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+    </svg>
+    Takes less than 2 minutes
+  </div>
+  <h1>Is Sperti <em>Right</em> for You?</h1>
+  <p class="hero-sub">
+    Answer a few simple questions to see if the Sperti UVB Home Lamp is a good fit — and get your Fitzpatrick skin type with a personalized starting dose.
+  </p>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <span class="num">50K+</span>
+      <span class="lbl">Lamps Sold</span>
+    </div>
+    <div class="hero-stat">
+      <span class="num">7-Year</span>
+      <span class="lbl">Warranty</span>
+    </div>
+    <div class="hero-stat">
+      <span class="num">Since 1933</span>
+      <span class="lbl">Trusted Brand</span>
+    </div>
+    <div class="hero-stat">
+      <span class="num">5 Min</span>
+      <span class="lbl">Every Other Day</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROGRESS ─── -->
+<div class="progress-shell">
+  <div class="progress-inner">
+    <div class="progress-steps">
+      <div class="progress-step active" id="ps1">
+        <div class="step-num">1</div>
+        <div class="step-label-text">Skin Type</div>
+      </div>
+      <div class="progress-step" id="ps2">
+        <div class="step-num">2</div>
+        <div class="step-label-text">Medical History</div>
+      </div>
+      <div class="progress-step" id="ps3">
+        <div class="step-num">3</div>
+        <div class="step-label-text">Your Results</div>
+      </div>
+    </div>
+  </div>
+  <div class="progress-bar-track">
+    <div class="progress-bar-fill" id="progressFill" style="width: 33%"></div>
+  </div>
+</div>
+
+<!-- ─── CARD WRAP ─── -->
+<div class="card-wrap">
+
+  <!-- STEP 1 -->
+  <div class="card active" id="step1">
+    <div class="card-header">
+      <div class="step-tag">Step 1 of 2 &nbsp;·&nbsp; Fitzpatrick Scale</div>
+      <h2 class="card-title">What is your skin type?</h2>
+      <p class="card-sub">Select the option that best describes how your unprotected skin reacts to sun exposure. This is the Fitzpatrick Scale — the clinical standard used in all medical phototherapy protocols.</p>
+    </div>
+    <div class="card-body">
+      <div class="skin-grid" id="skinGrid">
+
+        <label class="skin-card" data-type="I">
+          <input type="radio" name="skin" value="I" />
+          <div class="skin-swatch-wrap">
+            <div class="skin-swatch" style="background: #F5E6CF;"></div>
+            <div class="skin-check">
+              <svg viewBox="0 0 12 10" fill="none"><polyline points="1,5 4.5,8.5 11,1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+          <div class="skin-type-badge">Type I</div>
+          <div class="skin-name">Very Fair</div>
+          <div class="skin-reaction">Always burns, never tans. Pale or milk-white skin.</div>
+        </label>
+
+        <label class="skin-card" data-type="II">
+          <input type="radio" name="skin" value="II" />
+          <div class="skin-swatch-wrap">
+            <div class="skin-swatch" style="background: #EFD3A8;"></div>
+            <div class="skin-check">
+              <svg viewBox="0 0 12 10" fill="none"><polyline points="1,5 4.5,8.5 11,1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+          <div class="skin-type-badge">Type II</div>
+          <div class="skin-name">Fair</div>
+          <div class="skin-reaction">Usually burns, tans minimally. Light hair and eyes typical.</div>
+        </label>
+
+        <label class="skin-card" data-type="III">
+          <input type="radio" name="skin" value="III" />
+          <div class="skin-swatch-wrap">
+            <div class="skin-swatch" style="background: #D4A374;"></div>
+            <div class="skin-check">
+              <svg viewBox="0 0 12 10" fill="none"><polyline points="1,5 4.5,8.5 11,1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+          <div class="skin-type-badge">Type III</div>
+          <div class="skin-name">Medium</div>
+          <div class="skin-reaction">Sometimes burns, gradually tans to light brown.</div>
+        </label>
+
+        <label class="skin-card" data-type="IV">
+          <input type="radio" name="skin" value="IV" />
+          <div class="skin-swatch-wrap">
+            <div class="skin-swatch" style="background: #A87040;"></div>
+            <div class="skin-check">
+              <svg viewBox="0 0 12 10" fill="none"><polyline points="1,5 4.5,8.5 11,1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+          <div class="skin-type-badge">Type IV</div>
+          <div class="skin-name">Olive</div>
+          <div class="skin-reaction">Rarely burns, always tans well. Olive or light brown skin.</div>
+        </label>
+
+        <label class="skin-card" data-type="V">
+          <input type="radio" name="skin" value="V" />
+          <div class="skin-swatch-wrap">
+            <div class="skin-swatch" style="background: #7A4A28;"></div>
+            <div class="skin-check">
+              <svg viewBox="0 0 12 10" fill="none"><polyline points="1,5 4.5,8.5 11,1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+          <div class="skin-type-badge">Type V</div>
+          <div class="skin-name">Brown</div>
+          <div class="skin-reaction">Very rarely burns, tans very deeply and easily.</div>
+        </label>
+
+        <label class="skin-card" data-type="VI">
+          <input type="radio" name="skin" value="VI" />
+          <div class="skin-swatch-wrap">
+            <div class="skin-swatch" style="background: #3A1F10;"></div>
+            <div class="skin-check">
+              <svg viewBox="0 0 12 10" fill="none"><polyline points="1,5 4.5,8.5 11,1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+          <div class="skin-type-badge">Type VI</div>
+          <div class="skin-name">Deep</div>
+          <div class="skin-reaction">Never burns. Deeply pigmented dark brown or black skin.</div>
+        </label>
+
+      </div>
+
+      <div class="nav-row">
+        <button class="btn-primary" id="step1Next" disabled onclick="goStep(2)">
+          Continue to Medical Questions &nbsp;→
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="card" id="step2">
+    <div class="card-header">
+      <div class="step-tag">Step 2 of 2 &nbsp;·&nbsp; Medical Screening</div>
+      <h2 class="card-title">A few medical questions</h2>
+      <p class="card-sub">UVB phototherapy is safe for most people. However, certain conditions and medications need extra consideration. Please answer honestly — your safety is the priority.</p>
+    </div>
+    <div class="card-body">
+      <div class="questions">
+
+        <div class="q-item" id="q1">
+          <div class="q-text">Have you ever been diagnosed with skin cancer or melanoma — or are you at high risk due to family history?</div>
+          <div class="yn-pair">
+            <button class="yn-btn" onclick="answerQ(1,'yes')">Yes</button>
+            <button class="yn-btn" onclick="answerQ(1,'no')">No</button>
+          </div>
+        </div>
+
+        <div class="q-item" id="q2">
+          <div class="q-text">Do you have lupus (SLE), xeroderma pigmentosum, or any condition that causes extreme UV light sensitivity?</div>
+          <div class="yn-pair">
+            <button class="yn-btn" onclick="answerQ(2,'yes')">Yes</button>
+            <button class="yn-btn" onclick="answerQ(2,'no')">No</button>
+          </div>
+        </div>
+
+        <div class="q-item" id="q3">
+          <div class="q-text">Are you currently taking any medications that increase sensitivity to UV light?</div>
+          <div class="q-note">Common examples: psoralen, certain antibiotics (tetracycline, doxycycline), some diuretics, St. John's Wort, retinoids, or certain antidepressants. Ask your pharmacist if unsure.</div>
+          <div class="yn-pair">
+            <button class="yn-btn" onclick="answerQ(3,'yes')">Yes</button>
+            <button class="yn-btn" onclick="answerQ(3,'no')">No</button>
+          </div>
+        </div>
+
+        <div class="q-item" id="q4">
+          <div class="q-text">Do you have a large number of unusual moles, active open skin lesions, or a history of frequent severe sunburns?</div>
+          <div class="yn-pair">
+            <button class="yn-btn" onclick="answerQ(4,'yes')">Yes</button>
+            <button class="yn-btn" onclick="answerQ(4,'no')">No</button>
+          </div>
+        </div>
+
+        <div class="q-item" id="q5">
+          <div class="q-text">Are you currently pregnant, or have you recently undergone radiation therapy?</div>
+          <div class="yn-pair">
+            <button class="yn-btn" onclick="answerQ(5,'yes')">Yes</button>
+            <button class="yn-btn" onclick="answerQ(5,'no')">No</button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="nav-row">
+        <button class="btn-ghost" onclick="goStep(1)">← Back</button>
+        <button class="btn-primary" id="step2Next" disabled onclick="showResult()">
+          See My Results &nbsp;→
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULT -->
+  <div class="card" id="stepResult">
+    <!-- injected by JS -->
+  </div>
+
+</div><!-- /card-wrap -->
+
+<script>
+  const state = { skin: null, answers: {} };
+
+  const skinData = {
+    I:   { color: '#F5E6CF', name: 'Very Fair',  desc: 'Always burns · never tans',         risk: 'Highest UV sensitivity', start: '30 sec', max: '2–3 min' },
+    II:  { color: '#EFD3A8', name: 'Fair',        desc: 'Usually burns · minimal tan',        risk: 'High UV sensitivity',    start: '1 min',  max: '3–4 min' },
+    III: { color: '#D4A374', name: 'Medium',      desc: 'Sometimes burns · tans gradually',   risk: 'Moderate UV sensitivity',start: '2 min',  max: '5–6 min' },
+    IV:  { color: '#A87040', name: 'Olive',       desc: 'Rarely burns · tans easily',         risk: 'Low UV sensitivity',     start: '3 min',  max: '7–8 min' },
+    V:   { color: '#7A4A28', name: 'Brown',       desc: 'Very rarely burns · tans deeply',    risk: 'Very low UV sensitivity',start: '4 min',  max: '8–10 min' },
+    VI:  { color: '#3A1F10', name: 'Deep',        desc: 'Never burns · always tans profusely',risk: 'Lowest UV sensitivity',  start: '5 min',  max: '10 min' },
+  };
+
+  // Skin card selection
+  document.querySelectorAll('.skin-card').forEach(card => {
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.skin-card').forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      card.querySelector('input').checked = true;
+      state.skin = card.dataset.type;
+      document.getElementById('step1Next').disabled = false;
+    });
+  });
+
+  function answerQ(n, val) {
+    state.answers[n] = val;
+    const item = document.getElementById('q' + n);
+    item.classList.remove('answered', 'answered-yes');
+    item.classList.add(val === 'yes' ? 'answered-yes' : 'answered');
+    const btns = item.querySelectorAll('.yn-btn');
+    btns[0].className = 'yn-btn' + (val === 'yes' ? ' sel-yes' : '');
+    btns[1].className = 'yn-btn' + (val === 'no'  ? ' sel-no'  : '');
+    const allDone = [1,2,3,4,5].every(i => state.answers[i]);
+    document.getElementById('step2Next').disabled = !allDone;
+  }
+
+  function updateProgress(step) {
+    const pct = { 1: 33, 2: 66, 3: 100 };
+    document.getElementById('progressFill').style.width = pct[step] + '%';
+
+    ['ps1','ps2','ps3'].forEach((id, i) => {
+      const el = document.getElementById(id);
+      el.classList.remove('active','done');
+      if (i + 1 === step) el.classList.add('active');
+      if (i + 1 < step)  el.classList.add('done');
+      // swap checkmark for done steps
+      const numEl = el.querySelector('.step-num');
+      if (i + 1 < step) {
+        numEl.innerHTML = `<svg width="13" height="13" viewBox="0 0 12 10" fill="none"><polyline points="1,5 4.5,8.5 11,1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+      } else {
+        numEl.textContent = i + 1;
+      }
+    });
+  }
+
+  function goStep(n) {
+    document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+    document.getElementById('step' + n).classList.add('active');
+    updateProgress(n);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function showResult() {
+    const flags = [1,2,3,4,5].filter(i => state.answers[i] === 'yes');
+    const hardStop = flags.includes(1) || flags.includes(2) || flags.length >= 3;
+    const caution  = !hardStop && (flags.length > 0 || state.skin === 'I');
+    const verdict  = hardStop ? 'stop' : caution ? 'caution' : 'ok';
+
+    const sd = skinData[state.skin];
+
+    const icons = {
+      ok:      `<svg viewBox="0 0 24 24" fill="none" stroke="#3BAD4A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`,
+      caution: `<svg viewBox="0 0 24 24" fill="none" stroke="#E08900" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,
+      stop:    `<svg viewBox="0 0 24 24" fill="none" stroke="#DE2828" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>`,
+    };
+    const verdictText = {
+      ok:      'Great News — Sperti Looks Right for You',
+      caution: 'Possible Fit — Please Read Before Starting',
+      stop:    'Consult Your Doctor Before Using Sperti',
+    };
+    const verdictDesc = {
+      ok:      `Based on your skin type and medical history, you appear to be a good candidate for the Sperti UVB Home Lamp. Start with your recommended dose below and increase gradually every few sessions.`,
+      caution: `You may be able to use Sperti, but your answers suggest you should speak with your healthcare provider first. Start at the minimum dose and monitor your skin closely.`,
+      stop:    `Based on your responses, we strongly recommend consulting your doctor before beginning UVB phototherapy. One or more of your answers indicates a condition requiring medical evaluation first.`,
+    };
+
+    const reasonMap = {
+      1: 'Personal or family history of skin cancer or melanoma',
+      2: 'UV-sensitive medical condition (lupus, xeroderma pigmentosum, or similar)',
+      3: 'Currently taking photosensitizing medications — consult your prescribing physician',
+      4: 'Presence of unusual moles, active skin lesions, or history of severe burns',
+      5: 'Pregnancy or recent radiation therapy',
+    };
+
+    const alertsHtml = flags.length
+      ? `<div class="result-section">
+          <div class="result-section-label">${verdict === 'stop' ? 'Reasons to Consult First' : 'Discuss These with Your Doctor'}</div>
+          <div class="alert-list">
+            ${flags.map(f => `
+              <div class="alert-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <span>${reasonMap[f]}</span>
+              </div>`).join('')}
+          </div>
+        </div>`
+      : '';
+
+    const allTypes = ['I','II','III','IV','V','VI'];
+    const doseRowsHtml = allTypes.map(t => {
+      const d = skinData[t];
+      return `<tr class="${t === state.skin ? 'my-row' : ''}">
+        <td>
+          <span class="type-dot" style="background:${d.color};"></span>
+          <strong>Type ${t}</strong> — ${d.name}
+          ${t === state.skin ? '<span style="font-family:var(--font-head);font-size:0.65rem;font-weight:700;color:var(--brand-orange-dk);background:var(--brand-orange-lt);padding:2px 8px;border-radius:100px;margin-left:6px;vertical-align:middle;">You</span>' : ''}
+        </td>
+        <td>${d.start}</td>
+        <td>${d.max}</td>
+      </tr>`;
+    }).join('');
+
+    const doseSection = verdict !== 'stop' ? `
+      <div class="result-section">
+        <div class="result-section-label">Your Personalized Starting Dose</div>
+        <div class="skin-result-pill">
+          <div class="skin-result-swatch" style="background:${sd.color};"></div>
+          <div class="skin-result-info">
+            <div class="badge">Fitzpatrick Type ${state.skin}</div>
+            <div class="name">${sd.name} Skin</div>
+            <div class="detail">${sd.risk}</div>
+          </div>
+          <div class="skin-result-dose">
+            <span class="dose-val">${sd.start}</span>
+            <span class="dose-lbl">Starting Dose</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="result-section">
+        <div class="result-section-label">Fitzpatrick Dose Reference</div>
+        <table class="dose-table">
+          <thead>
+            <tr>
+              <th>Skin Type</th>
+              <th>Starting Dose</th>
+              <th>Max Per Session</th>
+            </tr>
+          </thead>
+          <tbody>${doseRowsHtml}</tbody>
+        </table>
+        <p style="font-size:0.78rem;color:var(--brand-gray);margin-top:10px;font-family:var(--font-body);line-height:1.5;">
+          Increase exposure by 30–60 seconds every 2–3 sessions as tolerated. If you experience redness or discomfort, reduce time and allow skin to recover before the next session. Always wear the included UV-blocking eyewear.
+        </p>
+      </div>
+
+      <div class="result-section">
+        <div class="result-section-label">Safety Tips</div>
+        <div class="tips-grid">
+          <div class="tip-item">
+            <span class="tip-icon">🕶️</span>
+            <div class="tip-title">Always Wear Eyewear</div>
+            <div class="tip-body">Use the included UV-blocking goggles every session, no exceptions.</div>
+          </div>
+          <div class="tip-item">
+            <span class="tip-icon">📅</span>
+            <div class="tip-title">Every Other Day</div>
+            <div class="tip-body">Allow at least 24–48 hours between sessions for skin recovery.</div>
+          </div>
+          <div class="tip-item">
+            <span class="tip-icon">📏</span>
+            <div class="tip-title">Consistent Distance</div>
+            <div class="tip-body">Use the lamp at the recommended distance as outlined in the manual.</div>
+          </div>
+        </div>
+      </div>` : '';
+
+    const ctaHtml = verdict === 'stop'
+      ? `<a class="cta-btn cta-btn-outline" href="https://sperti.com" style="text-align:center;">Learn More at Sperti.com</a>`
+      : `<a class="cta-btn cta-btn-primary" href="https://www.amazon.com/dp/B01LBI1BIO" target="_blank" rel="noopener">Order on Amazon →</a>
+         <a class="cta-btn cta-btn-outline" href="https://sperti.com" target="_blank" rel="noopener">Visit Sperti.com</a>`;
+
+    document.getElementById('stepResult').innerHTML = `
+      <div class="result-banner">
+        <div class="result-icon-wrap ${verdict}">${icons[verdict]}</div>
+        <div class="result-verdict ${verdict}">${verdictText[verdict]}</div>
+        <div class="result-desc">${verdictDesc[verdict]}</div>
+      </div>
+
+      ${alertsHtml}
+      ${doseSection}
+
+      <div class="result-section">
+        <div class="result-cta">${ctaHtml}</div>
+        <div class="disclaimer">
+          This questionnaire is for informational purposes only and does not constitute medical advice.
+          Always read the full product manual and consult your healthcare provider if you have any medical conditions.
+          The Sperti UVB Home Lamp is an FDA-compliant device. © Sperti Sunlamps.
+        </div>
+        <div class="restart-row">
+          <a class="restart-link" onclick="restart(); return false;" href="#">Retake the quiz</a>
+        </div>
+      </div>
+    `;
+
+    document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+    document.getElementById('stepResult').classList.add('active');
+    updateProgress(3);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function restart() {
+    state.skin = null;
+    state.answers = {};
+    document.querySelectorAll('.skin-card').forEach(c => c.classList.remove('selected'));
+    document.querySelectorAll('.q-item').forEach(i => {
+      i.classList.remove('answered','answered-yes');
+      i.querySelectorAll('.yn-btn').forEach(b => b.className = 'yn-btn');
+    });
+    document.getElementById('step1Next').disabled = true;
+    document.getElementById('step2Next').disabled = true;
+    goStep(1);
+  }
+</script>
+</body>
+</html>
